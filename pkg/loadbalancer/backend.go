@@ -1,4 +1,4 @@
-package main
+package loadbalancer
 
 import (
 	"net/http/httputil"
@@ -13,14 +13,14 @@ type Backend struct {
 	ReverseProxy *httputil.ReverseProxy
 }
 
-func (b *Backend) isAlive() (alive bool) {
+func (b *Backend) IsAlive() (alive bool) {
 	b.mux.RLock()
 	alive = b.Alive
 	b.mux.RUnlock()
 	return alive
 }
 
-func (b *Backend) setAlive(alive bool) {
+func (b *Backend) SetAlive(alive bool) {
 	b.mux.Lock()
 	b.Alive = alive
 	b.mux.Unlock()
